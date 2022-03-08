@@ -1,37 +1,61 @@
-## Welcome to GitHub Pages
 
-You can use the [editor on GitHub](https://github.com/Madonox/InstanceBinder/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+# InstanceBinder
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+## What is it?
 
-### Markdown
+InstanceBinder is an open-source module for Roblox made by Madonox.  The module allows you to attach metatables to instances.
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+## Installation
+In order to install InstanceBinder, simply insert the [model](https://www.roblox.com/library/9048155124/InstanceBinder) into your game and require the main module by doing:
+```lua
+local InstanceBinder = require(path.to.folder.InstanceBinder.InstanceBinder)
 ```
 
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
+## Documentation
 
-### Jekyll Themes
+InstanceBinder is a complex module, so a documentation would be needed.  Below is a documentation of all the functions, and their arguments.
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/Madonox/InstanceBinder/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+| Function | Argument(s) | Purpose |
+|--|--| -- |
+| init | [none] | Initializes the module, loads libraries, checks for updates, etc.
+| get | instance:Instance | Fetch the metatable for said instance.
+| callFunction | instance:Instance, functionName:String, ... | Call a function from said instance (from metatable).
+| getProperty | instance:Instance, propertyName:String | Returns the property from supplied instance (from metatable).
+| createClass | className:String, class:Table(metatable) | Register a class.
+| extends | instance:Instance, className:String | Construct an instance with a specified class (class must be constructed using createClass).
 
-### Support or Contact
+### Usage tutorial:
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+The code below will be a sort of demo for using the module.
+
+In order to begin using the module, we must first require and initialize it.
+```lua
+local InstanceBinder = require(game.ReplicatedStorage.InstanceBinder.InstanceBinder)
+
+InstanceBinder.init() -- Initialize the module.
+```
+
+Now that the module is required and initialized, we can now begin interacting with it.
+```lua
+InstanceBinder.createClass("Test",require(script.Test)) -- the script.Test refers to a modulescript containing an OOP table (metatable).
+```
+
+Now that we have registered out class, we can begin constructing instances with it!
+
+```lua
+local Class = InstanceBinder.get(workspace.Part) -- Get the class.
+
+  
+
+print(InstanceBinder.readProperty(workspace.Part,"part").Name) -- Use the built-in methods.
+
+  
+
+InstanceBinder.callFunction(workspace.Part,"Fire") -- Use the built-in methods.
+
+  
+
+Class:Fire() -- Use the Class methods.
+```
+
+And that's it for our demo!  If you have any questions, do not hesitate to message me on the devforum!
